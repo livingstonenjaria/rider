@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout android:orientation="horizontal"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="20dp"
+    xmlns:tools="http://schemas.android.com/apk/res-auto"
+    xmlns:tool="http://schemas.android.com/tools">
+
+    <ImageView
+        android:id="@+id/connector"
+        android:layout_width="52dp"
+        android:layout_height="72dp"
+        android:layout_alignBottom="@+id/to"
+        android:layout_alignParentStart="true"
+        android:paddingTop="10dp"
+        android:src="@mipmap/fromto" />
+
+    <TextView
+        android:id="@+id/rideDate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="10sp"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentTop="true"
+        tool:text="29 Dec 2017" />
+
+    <TextView
+        android:id="@+id/rideTime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignEnd="@+id/rideDate"
+        android:layout_below="@+id/toHeader"
+        android:textSize="10sp"
+        tool:text="10:00PM" />
+
+    <TextView
+        android:id="@+id/fromHeader"
+        android:layout_marginStart="0dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:textSize="10sp"
+        android:layout_toEndOf="@+id/connector"
+        tool:text="from" />
+
+    <TextView
+        android:id="@+id/from"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/fromHeader"
+        android:layout_below="@+id/fromHeader"
+        android:textSize="12sp"
+        android:singleLine="true"
+        android:ellipsize="end"
+        android:maxLines="1"
+        tool:text="Nairobi, Nairobi County" />
+
+    <TextView
+        android:id="@+id/toHeader"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:textSize="10sp"
+        android:layout_alignStart="@+id/from"
+        android:layout_below="@+id/from"
+        tool:text="to" />
+
+    <TextView
+        android:id="@+id/to"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/toHeader"
+        android:layout_toEndOf="@+id/connector"
+        tool:text="Westlands, Nairobi County"
+        android:singleLine="true"
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:textSize="12sp" />
+
+    <TextView
+        android:id="@+id/historyid"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_toEndOf="@+id/to"
+       android:visibility="gone" />
+
+</RelativeLayout>

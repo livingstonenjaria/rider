@@ -1,0 +1,143 @@
+<resources>
+    <string name="app_name">Chauffeur Rider</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="action_settings">Settings</string>
+    <string name="title_activity_maps">Map</string>
+    <string name="title_activity_history">HistoryActivity</string>
+    <string name="title_activity_profile">ProfileActivity</string>
+    <string name="title_activity_payment">PaymentActivity</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="login">Login</string>
+    <string name="register">Register</string>
+    <string name="chauffeur">Chauffeur</string>
+    <string name="surname">Surname</string>
+    <string name="full_name">Full Name</string>
+    <string name="phone">Phone</string>
+    <string name="already_have_an_account_login">Already have an account? Login</string>
+    <string name="offline">No Internet Connection</string>
+    <string name="retry">Retry</string>
+    <string name="weak_pass">The password you entered is weak</string>
+    <string name="invalid_email">The email you entered is incorrect</string>
+    <string name="existing_email">The email you entered is already in use</string>
+    <string name="profile">Profile</string>
+    <string name="history">History</string>
+    <string name="payment">Payment</string>
+    <string name="help">Help</string>
+    <string name="logout">Logout</string>
+    <string name="about">About</string>
+    <string name="confirm">Confirm Request</string>
+    <string name="request_a_chauffeur">Request a Chauffeur</string>
+    <string name="cancel_ride">Cancel Ride</string>
+    <string name="call_driver">Call Driver</string>
+    <string name="destination">Destination</string>
+    <string name="pick_up">Pick Up</string>
+    <string name="estimate">Estimate</string>
+    <string name="where_can_we_take_you">Where can we take you</string>
+    <string name="getting_driver">Getting your driver</string>
+    <string name="ride_complete">Ride Complete</string>
+    <string name="make_payment">Make Payment</string>
+    <string name="currency_in_kenya">KES</string>
+    <string name="currency_in_congo">$</string>
+    <string name="space" />
+    <string name="submit_rating">Submit Rating</string>
+    <string name="update">Update</string>
+    <string name="rate_your_driver">Rate your driver</string>
+    <string name="from">From</string>
+    <string name="to">To</string>
+    <string name="rate_your_trip">Rate your trip</string>
+    <string name="cash">Cash</string>
+    <string name="title_activity_scrolling">ScrollingActivity</string>
+    <string name="national_id">National ID / Passport</string>
+    <string name="update_password">Update Password</string>
+    <string name="cancel_request">Cancel Request</string>
+    <string name="cancel_reason">Reason for cancellation</string>
+    <string name="ok">Ok</string>
+    <string name="dismiss">Dismiss</string>
+    <string name="no_driver_message">We re sorry we could not find any drivers</string>
+    <string name="no_driver">Driver Not Found</string>
+    <string name="driver_found">Driver Found</string>
+    <string name="total">Total Ride Cost</string>
+    <string name="me">For Me</string>
+    <string name="other">For Other</string>
+    <string name="drag_marker">Drag Marker</string>
+    <string name="drag_marker_to_location">Drag marker to your desired pickup location</string>
+    <string name="pick_up_here">Pick Up Here</string>
+    <string name="unable_to_get_location">Unable to get your location, please turn on location</string>
+    <string name="your_driver">Your driver is</string>
+    <string name="away">km away</string>
+    <string name="arrived">Your driver has arrived</string>
+    <string name="update_id">Update ID</string>
+    <string name="id_update">ID updated</string>
+    <string name="update_surname">Update Surname</string>
+    <string name="surname_updated">Surname Updated</string>
+    <string name="surname_update">Surname Update</string>
+    <string name="national_id_update">National ID Update</string>
+    <string name="update_phone">Update Phone</string>
+    <string name="updating_phone">Updating  Phone...</string>
+    <string name="phone_num_update">Phone number updated</string>
+    <string name="password_updated">Password  Updated</string>
+    <string name="updating_password">Updating  Password...</string>
+    <string name="password_update">Password Update</string>
+    <string name="updating_surname">Updating  Surname...</string>
+    <string name="image_update">Image Update</string>
+    <string name="driver_cancel">Driver Cancelled</string>
+    <string name="driver_cancel_msg">Sorry the driver has cancelled the ride</string>
+    <string-array name="choice">
+        <item>For Me</item>
+        <item>For Other</item>
+    </string-array>
+    <string-array name="cancel_choices">
+        <item>Request took too long</item>
+        <item>Changed my mind</item>
+        <item>Accidental Request</item>
+    </string-array>
+    <string-array name="cancel_ride">
+        <item>Driver took too long</item>
+        <item>Changed my mind</item>
+        <item>Unable to make the trip</item>
+    </string-array>
+    <string name="terms">
+        Chauffeur Terms and Conditions
+________________________________________
+
+
+Terms and Conditions
+
+Last updated: 12 /2/2018
+
+Please read these Terms and Conditions carefully before using the http://www.chauffeur.com website and the Chauffeur mobile application operated by Chauffeur.
+
+Your access to and use of the Service is conditioned on your acceptance of and compliance with these Terms. These Terms apply to all visitors, users and others who access or use the Service.
+
+By accessing or using the Service you agree to be bound by these Terms. If you disagree with any part of the terms then you may not access the Service.
+Registration
+By registering on the app you are allowing us access to your personal information and giving us a right to access this information.
+Services
+If you wish to use our services, you may be asked to supply certain information relevant to the service, without limitation, your current location, destination and other relevant information.
+Contact Us
+If you have any questions about these Terms, please contact us at http://www.chauffeur.co.ke
+    </string>
+    <string name="update_email">Update Email</string>
+    <string name="email_updated">Email Updated</string>
+    <string name="update_name">Update Name</string>
+    <string name="name_updated">Name Updated</string>
+    <string name="name_update">Name Update</string>
+    <string name="ride_ongoing">Ride Ongoing</string>
+    <string name="country_code">Country Code</string>
+    <string name="code_updated">Country Code Updated</string>
+    <string name="updating_code">Updating Code</string>
+    <string name="payment_options">Payment Options</string>
+    <string name="visa">Card</string>
+    <string name="corporate">Corporate</string>
+    <string name="add_payment_card">Add payment card</string>
+    <string name="add_corporate_payment_option">Add corporate payment option</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+    <string name="selectionerror">Selection Error</string>
+    <string name="carderror">You have not set up a card payment option, please set up the card option in order to use this selection. Would u like to set it up now?</string>
+    <string name="remove">Remove</string>
+    <string name="ride_with">Ride with</string>
+</resources>

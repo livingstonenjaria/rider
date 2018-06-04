@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Chauffeur Rider</string>
+
+    <string name="navigation_drawer_open">Ouvrir le tiroir de navigation</string>
+    <string name="navigation_drawer_close">Fermer le tiroir de navigation</string>
+    <string name="action_settings">Settings</string>
+    <string name="title_activity_maps">Map</string>
+    <string name="title_activity_history">HistoireActivité</string>
+    <string name="title_activity_profile">ProfileActivité</string>
+    <string name="title_activity_payment">PaymentActivity</string>
+    <string name="email">Email</string>
+    <string name="password">Mot de passe</string>
+    <string name="login">S'identifier</string>
+    <string name="register">Registre</string>
+    <string name="chauffeur">Chauffeur</string>
+    <string name="surname">Nom de famille</string>
+    <string name="full_name">Nom complet</string>
+    <string name="phone">Téléphone</string>
+    <string name="already_have_an_account_login">Vous avez déjà un compte? S'identifier</string>
+    <string name="offline">Pas de connexion Internet</string>
+    <string name="retry">Recommencez</string>
+    <string name="weak_pass">Le mot de passe que vous avez entré est faible</string>
+    <string name="invalid_email">L'email que vous avez entré est incorrect</string>
+    <string name="existing_email">L'email que vous avez entré est déjà utilisé</string>
+    <string name="profile">Profil</string>
+    <string name="history">Histoire</string>
+    <string name="payment">Paiement</string>
+    <string name="help">Aidez-moi</string>
+    <string name="logout">Connectez - Out</string>
+    <string name="about">Sur</string>
+    <string name="confirm">Confirmer la requête</string>
+    <string name="request_a_chauffeur">Demander un Chauffeur</string>
+    <string name="cancel_ride">Annuler la randonnée</string>
+    <string name="call_driver">Pilote d'appel</string>
+    <string name="destination">Destination</string>
+    <string name="pick_up">Ramasser</string>
+    <string name="estimate">Estimation</string>
+    <string name="where_can_we_take_you">Où peut-on t'emmener</string>
+    <string name="getting_driver">Obtenir votre chauffeur</string>
+    <string name="ride_complete">Tour complet</string>
+    <string name="make_payment">Effectuer le paiement</string>
+    <string name="currency_in_kenya">KES</string>
+    <string name="currency_in_congo">$</string>
+    <string name="space" />
+    <string name="submit_rating">Envoyer une note</string>
+    <string name="update">Mettre à jour</string>
+    <string name="rate_your_driver">Evaluez votre chauffeur</string>
+    <string name="from">De</string>
+    <string name="to">À</string>
+    <string name="rate_your_trip">Evaluez votre voyage</string>
+    <string name="cash">En espèces</string>
+    <string name="title_activity_scrolling">ScrollingActivity</string>
+    <string name="national_id">carte d'identité / passeport</string>
+    <string name="update_password">Mettre à jour le mot de passe</string>
+    <string name="cancel_request">Demande d'annulation</string>
+    <string name="cancel_reason">Raison pour l'annulation</string>
+    <string name="ok">D'accord</string>
+    <string name="dismiss">Rejeter</string>
+    <string name="no_driver_message">Nous sommes désolés, nous n'avons pas pu trouver de pilotes</string>
+    <string name="no_driver">Pilote introuvable</string>
+    <string name="driver_found">Pilote trouvé</string>
+    <string name="total">Total Ride Cost</string>
+    <string name="me">Pour moi</string>
+    <string name="other">Pour les autres</string>
+    <string name="drag_marker">Faites glisser le marqueur</string>
+    <string name="drag_marker_to_location">Faites glisser le marqueur jusqu'à l'emplacement de votre choix.</string>
+    <string name="pick_up_here">Ramasser ici</string>
+    <string name="unable_to_get_location">Impossible d'obtenir votre position, veuillez activer l'emplacement</string>
+    <string name="your_driver">Votre chauffeur est</string>
+    <string name="away">km loin</string>
+    <string name="arrived">Votre chauffeur est arrivé</string>
+    <string name="update_id">Mise à jour</string>
+    <string name="id_update">ID mis à jour</string>
+    <string name="update_surname">Mettre à jour</string>
+    <string name="surname_updated">Nom mis à jour</string>
+    <string name="surname_update">Nom de famille</string>
+    <string name="national_id_update">Mise à jour nationale d'identification</string>
+    <string name="update_phone">mise à jour téléphonique</string>
+    <string name="updating_phone">Mise à jour du téléphone...</string>
+    <string name="phone_num_update">Numéro de téléphone mis à jour</string>
+    <string name="password_updated">Mot de passe mis à jour</string>
+    <string name="updating_password">Mise à jour du mot de...</string>
+    <string name="password_update">mettre à jour le mot de passe</string>
+    <string name="updating_surname">Mise à jour du nom...</string>
+    <string name="image_update">Mise à jour</string>
+    <string name="driver_cancel">Pilote annulé</string>
+    <string name="driver_cancel_msg">Désolé, le conducteur a annulé le trajet</string>
+    <string-array name="choice">
+        <item>Pour moi</item>
+        <item>Pour les autres</item>
+    </string-array>
+    <string-array name="cancel_choices">
+        <item>La demande a pris trop de temps</item>
+        <item>Changé d'avis</item>
+        <item>Demande accidentelle</item>
+    </string-array>
+    <string-array name="cancel_ride">
+        <item>Le conducteur a pris trop de temps</item>
+        <item>Changé d'avis</item>
+        <item>Impossible de faire le voyage</item>
+    </string-array>
+    <string name="terms">
+        Conditions générales du chauffeur
+        ________________________________________
+
+
+        Termes et conditions
+
+        Dernière mise à jour: 12 /2/2018
+
+        Veuillez lire attentivement ces Termes et Conditions avant d'utiliser le site http://www.chauffeur.com et l'application mobile Chauffeur opérée par Chauffeur.
+
+        Votre accès et votre utilisation du Service sont conditionnés par votre acceptation et votre respect de ces Conditions. Ces Conditions s'appliquent à tous les visiteurs, utilisateurs et autres personnes qui accèdent ou utilisent le Service.
+
+        En accédant ou en utilisant le Service, vous acceptez d'être lié par ces Conditions. Si vous n'êtes pas d'accord avec une partie des termes, vous ne pouvez pas accéder au Service.
+        enregistrement
+        En vous inscrivant sur l'application, vous nous autorisez à accéder à vos informations personnelles et à nous donner le droit d'accéder à ces informations.
+        Prestations de service
+        Si vous souhaitez utiliser nos services, il peut vous être demandé de fournir certaines informations relatives au service, sans limitation, votre position actuelle, votre destination et d'autres informations pertinentes.
+        Contactez nous
+        Si vous avez des questions à propos de ces conditions, s'il vous plaît contactez-nous au http://www.chauffeur.co.ke
+    </string>
+    <string name="update_email">Mettre à jour Email</string>
+    <string name="email_updated">Email mis à jour</string>
+    <string name="update_name">Mettre à jour</string>
+    <string name="name_updated">Nom mis à jour</string>
+    <string name="name_update">Nom Mise à jour</string>
+    <string name="ride_ongoing">Rouler en cours</string>
+    <string name="code_updated">Code pays mis à jour</string>
+    <string name="updating_code">Mise à jour du code</string>
+    <string name="payment_options">Options de paiement</string>
+    <string name="visa">Carte</string>
+    <string name="corporate">Entreprise</string>
+    <string name="add_payment_card">Ajouter une carte de paiement</string>
+    <string name="add_corporate_payment_option">Ajouter une option de paiement d'entreprise</string>
+    <string name="yes">Oui</string>
+    <string name="no">Non</string>
+    <string name="selectionerror">Erreur de sélection</string>
+    <string name="carderror">Vous n'avez pas configuré d'option de paiement par carte, veuillez configurer l'option de la carte afin d'utiliser cette sélection. Souhaitez-vous le configurer maintenant?</string>
+    <string name="remove">Retirer</string>
+    <string name="ride_with">Rouler avec</string>
+</resources>

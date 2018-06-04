@@ -1,0 +1,322 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v4.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context="ke.co.struct.chauffeurrider.activities.ProfileActivity"
+    tools:showIn="@layout/activity_profile">
+
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:id="@+id/name_layout"
+            android:layout_width="0dp"
+            android:layout_height="100dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageView
+                android:id="@+id/logo"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_margin="30dp"
+                android:src="@drawable/person" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_marginBottom="20dp"
+                android:layout_toEndOf="@id/logo"
+                android:text="@string/full_name"
+                android:textSize="15sp" />
+
+            <TextView
+                android:id="@+id/name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="25dp"
+                android:layout_toEndOf="@id/logo"
+                android:textSize="18sp"
+                tools:text="John Doe" />
+        </RelativeLayout>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:layout_marginEnd="24dp"
+            android:layout_marginStart="24dp"
+            android:background="@color/black"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/name_layout" />
+        <RelativeLayout
+            android:id="@+id/surname_layout"
+            android:layout_width="0dp"
+            android:layout_height="100dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/name_layout">
+
+            <ImageView
+                android:id="@+id/logo_one"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_margin="30dp"
+                android:src="@drawable/person" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_marginBottom="20dp"
+                android:layout_toEndOf="@id/logo_one"
+                android:text="@string/surname"
+                android:textSize="15sp" />
+
+            <TextView
+                android:id="@+id/surname"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="25dp"
+                android:layout_toEndOf="@id/logo_one"
+                android:textSize="18sp"
+                tools:text="Smith" />
+        </RelativeLayout>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:layout_marginEnd="24dp"
+            android:layout_marginStart="24dp"
+            android:background="@color/black"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/surname_layout" />
+        <RelativeLayout
+            android:id="@+id/email_layout"
+            android:layout_width="0dp"
+            android:layout_height="100dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/surname_layout">
+
+            <ImageView
+                android:id="@+id/logo_two"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_margin="30dp"
+                android:src="@drawable/mail" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_marginBottom="20dp"
+                android:layout_toEndOf="@id/logo_two"
+                android:text="@string/email"
+                android:textSize="15sp" />
+
+            <TextView
+                android:id="@+id/email"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="25dp"
+                android:layout_toEndOf="@id/logo_two"
+                android:textSize="18sp"
+                tools:text="johndoe@gmail.com" />
+        </RelativeLayout>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:layout_marginEnd="24dp"
+            android:layout_marginStart="24dp"
+            android:background="@color/black"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/email_layout" />
+        <RelativeLayout
+            android:id="@+id/id_layout"
+            android:layout_width="0dp"
+            android:layout_height="100dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/email_layout">
+
+            <ImageView
+                android:id="@+id/logo_three"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_margin="30dp"
+                android:src="@drawable/id_card" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_marginBottom="20dp"
+                android:layout_toEndOf="@id/logo_three"
+                android:text="@string/national_id"
+                android:textSize="15sp" />
+
+            <TextView
+                android:id="@+id/national_id"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="25dp"
+                android:layout_toEndOf="@id/logo_three"
+                android:textSize="18sp"
+                tools:text="01010101" />
+        </RelativeLayout>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:layout_marginEnd="24dp"
+            android:layout_marginStart="24dp"
+            android:background="@color/black"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/id_layout" />
+        <RelativeLayout
+            android:id="@+id/countrycode"
+            android:layout_width="0dp"
+            android:layout_height="100dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/id_layout">
+            <com.hbb20.CountryCodePicker
+                android:id="@+id/ccp1"
+                android:layout_width="wrap_content"
+                android:layout_height="45dp"
+                android:layout_margin="30dp"
+                app:ccp_textGravity="CENTER"
+                app:ccpDialog_showPhoneCode="true"
+                app:ccp_autoDetectCountry="true"
+                app:ccp_countryAutoDetectionPref="SIM_ONLY"
+                app:ccp_autoDetectLanguage="true"
+                app:ccp_showPhoneCode="false"
+                app:ccp_customMasterCountries="KE,CD"
+                />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_marginBottom="20dp"
+                android:text="@string/country_code"
+                android:layout_toEndOf="@id/ccp1"
+                android:textSize="15sp" />
+
+            <TextView
+                android:id="@+id/country_code"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="25dp"
+                android:layout_toEndOf="@id/ccp1"
+                android:textSize="18sp"
+                tools:text="KE" />
+        </RelativeLayout>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:layout_marginEnd="24dp"
+            android:layout_marginStart="24dp"
+            android:background="@color/black"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/countrycode" />
+        <RelativeLayout
+            android:id="@+id/phone_layout"
+            android:layout_width="0dp"
+            android:layout_height="100dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/countrycode">
+
+            <ImageView
+                android:id="@+id/logo_four"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_margin="30dp"
+                android:src="@drawable/phone" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_marginBottom="20dp"
+                android:layout_toEndOf="@id/logo_four"
+                android:text="@string/phone"
+                android:textSize="15sp" />
+
+            <TextView
+                android:id="@+id/phone"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="25dp"
+                android:layout_toEndOf="@id/logo_four"
+                android:textSize="18sp"
+                tools:text="071000100" />
+        </RelativeLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:layout_marginEnd="24dp"
+            android:layout_marginStart="24dp"
+            android:background="@color/black"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/phone_layout" />
+        <RelativeLayout
+            android:id="@+id/password_layout"
+            android:layout_width="0dp"
+            android:layout_height="100dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/phone_layout">
+
+            <ImageView
+                android:id="@+id/logo_five"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_margin="30dp"
+                android:src="@drawable/lock" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_marginBottom="20dp"
+                android:layout_toEndOf="@id/logo_five"
+                android:text="@string/password"
+                android:textSize="15sp" />
+
+            <EditText
+                android:id="@+id/password"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="25dp"
+                android:layout_toEndOf="@id/logo_five"
+                android:textSize="18sp"
+                android:background="@android:color/transparent"
+                android:editable="false"
+                android:inputType="textPassword"
+                tools:text="071000100" />
+        </RelativeLayout>
+
+
+    </android.support.constraint.ConstraintLayout>
+
+</android.support.v4.widget.NestedScrollView>

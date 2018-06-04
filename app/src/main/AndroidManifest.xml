@@ -1,0 +1,218 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="ke.co.struct.chauffeurrider">
+
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="com.google.android.providers.gsf.permission.READ_GSERVICES" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+
+    <application
+        android:name=".appmanager.AppData"
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyDp8lCPGhGE5uhyqlUWZhS0t_uQajW5yhg" />
+        <!-- <meta-data -->
+        <!-- android:name="com.google.android.maps.v2.API_KEY" -->
+        <!-- android:value="AIzaSyDp8lCPGhGE5uhyqlUWZhS0t_uQajW5yhg" /> -->
+        <service android:name=".notifications.MyFirebaseInstanceIDService">
+            <intent-filter>
+                <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />
+            </intent-filter>
+        </service>
+        <service android:name=".notifications.MyFirebaseMessagingService">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+            </intent-filter>
+        </service>
+        <service android:name=".Service.MyFirebaseService">
+            <intent-filter>
+                <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />
+            </intent-filter>
+        </service>
+        <service android:name=".Service.MyFirebaseMessaging">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+            </intent-filter>
+        </service>
+
+        <activity android:name=".register_and_login.RiderLoginActivity">
+
+            <!-- <intent-filter> -->
+            <!-- <action android:name="android.intent.action.MAIN" /> -->
+
+
+            <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
+            <!-- </intent-filter> -->
+        </activity>
+        <activity
+            android:name=".register_and_login.RiderRegisterActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".MainActivity"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".activities.HistoryActivity"
+            android:label="@string/title_activity_history"
+            android:parentActivityName=".MainActivity"
+            android:screenOrientation="portrait">
+
+            <!-- Parent activity meta-data to support 4.0 and lower -->
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="ke.co.struct.chauffeurrider.MainActivity" />
+        </activity>
+        <activity
+            android:name=".activities.ProfileActivity"
+            android:label="@string/title_activity_profile"
+            android:parentActivityName=".MainActivity"
+            android:screenOrientation="portrait">
+
+            <!-- Parent activity meta-data to support 4.0 and lower -->
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="ke.co.struct.chauffeurrider.MainActivity" />
+        </activity>
+        <activity
+            android:name=".activities.PaymentActivity"
+            android:label="@string/title_activity_payment"
+            android:parentActivityName=".MainActivity"
+            android:screenOrientation="portrait">
+
+            <!-- Parent activity meta-data to support 4.0 and lower -->
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="ke.co.struct.chauffeurrider.MainActivity" />
+        </activity>
+        <activity
+            android:name=".activities.ImageUpdateActivity"
+            android:parentActivityName=".activities.ProfileActivity"
+            android:screenOrientation="portrait">
+
+            <!-- Parent activity meta-data to support 4.0 and lower -->
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="ke.co.struct.chauffeurrider.activities.ProfileActivity" />
+        </activity>
+        <activity
+            android:name=".activities.NameUpdateActivity"
+            android:parentActivityName=".activities.ProfileActivity"
+            android:screenOrientation="portrait">
+
+            <!-- Parent activity meta-data to support 4.0 and lower -->
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="ke.co.struct.chauffeurrider.activities.ProfileActivity" />
+        </activity>
+        <activity
+            android:name=".activities.SurnameUpdateActivity"
+            android:parentActivityName=".activities.ProfileActivity"
+            android:screenOrientation="portrait">
+
+            <!-- Parent activity meta-data to support 4.0 and lower -->
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="ke.co.struct.chauffeurrider.activities.ProfileActivity" />
+        </activity>
+        <activity
+            android:name=".activities.EmailUpdateActivity"
+            android:parentActivityName=".activities.ProfileActivity"
+            android:screenOrientation="portrait">
+
+            <!-- Parent activity meta-data to support 4.0 and lower -->
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:screenOrientation="portrait"
+                android:value="ke.co.struct.chauffeurrider.activities.ProfileActivity" />
+        </activity>
+        <activity
+            android:name=".activities.PhoneUpdateActivity"
+            android:parentActivityName=".activities.ProfileActivity"
+            android:screenOrientation="portrait">
+
+            <!-- Parent activity meta-data to support 4.0 and lower -->
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="ke.co.struct.chauffeurrider.activities.ProfileActivity" />
+        </activity>
+        <activity
+            android:name=".activities.PasswordUpdateActivity"
+            android:parentActivityName=".activities.ProfileActivity"
+            android:screenOrientation="portrait">
+
+            <!-- Parent activity meta-data to support 4.0 and lower -->
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="ke.co.struct.chauffeurrider.activities.ProfileActivity" />
+        </activity>
+        <activity
+            android:name=".activities.IDUpdateActivity"
+            android:parentActivityName=".activities.ProfileActivity"
+            android:screenOrientation="portrait">
+
+            <!-- Parent activity meta-data to support 4.0 and lower -->
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="ke.co.struct.chauffeurrider.activities.ProfileActivity" />
+        </activity>
+        <activity android:name=".activities.LanguageUpdateActivity" />
+        <activity
+            android:name=".activities.HistorySinglePage"
+            android:parentActivityName=".activities.HistoryActivity"
+            android:screenOrientation="portrait">
+
+            <!-- Parent activity meta-data to support 4.0 and lower -->
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="ke.co.struct.chauffeurrider.activities.HistoryActivity" />
+        </activity>
+        <activity
+            android:name=".SplashActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/SplashTheme">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".activities.TermsActivity"
+            android:parentActivityName=".MainActivity">
+
+            <!-- Parent activity meta-data to support 4.0 and lower -->
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="ke.co.struct.chauffeurrider.MainActivity" />
+        </activity>
+        <activity android:name=".activities.CorporateActivity"
+            android:parentActivityName=".activities.PaymentActivity"
+            android:screenOrientation="portrait">
+
+            <!-- Parent activity meta-data to support 4.0 and lower -->
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="ke.co.struct.chauffeurrider.activities.PaymentActivity" />
+        </activity>
+        <activity android:name=".activities.CardActivity"
+            android:parentActivityName=".activities.PaymentActivity"
+            android:screenOrientation="portrait">
+
+            <!-- Parent activity meta-data to support 4.0 and lower -->
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="ke.co.struct.chauffeurrider.activities.PaymentActivity" />
+        </activity>
+    </application>
+
+</manifest>
