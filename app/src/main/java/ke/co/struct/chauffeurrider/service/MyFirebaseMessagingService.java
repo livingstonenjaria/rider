@@ -12,14 +12,18 @@ import android.net.Uri;
 import android.os.Handler;
 import android.os.Looper;
 import android.support.v4.app.NotificationCompat;
+import android.support.v4.content.LocalBroadcastManager;
 import android.widget.Toast;
 
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
 
 
+import java.util.Map;
+
 import ke.co.struct.chauffeurrider.MainActivity;
 import ke.co.struct.chauffeurrider.R;
+import ke.co.struct.chauffeurrider.activities.DriverAlertActivity;
 
 public class MyFirebaseMessagingService extends FirebaseMessagingService {
     private String title, body;
@@ -44,6 +48,25 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
 
         }
         else if (title.equals("Accepted")){
+            if(remoteMessage.getData().size() > 0){
+                Map<String,String> payload = remoteMessage.getData();
+                // Create and show notification
+                String name = payload.get("name");
+                String phone = payload.get("phone");
+                String pic = payload.get("profileImageUrl");
+                String model = payload.get("carType");
+                String car = payload.get("carimg");
+                String plate = payload.get("licPlate");
+                Intent intent = new Intent(getBaseContext(), DriverAlertActivity.class);
+                intent.putExtra("name",name);
+                intent.putExtra("phone",phone);
+                intent.putExtra("pic",pic);
+                intent.putExtra("model",model);
+                intent.putExtra("car",car);
+                intent.putExtra("plate",plate);
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(intent);
+            }
 
         }
 

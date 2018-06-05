@@ -23,16 +23,16 @@
         <!-- <meta-data -->
         <!-- android:name="com.google.android.maps.v2.API_KEY" -->
         <!-- android:value="AIzaSyDp8lCPGhGE5uhyqlUWZhS0t_uQajW5yhg" /> -->
-        <!--<service android:name=".notifications.MyFirebaseInstanceIDService">-->
-            <!--<intent-filter>-->
-                <!--<action android:name="com.google.firebase.INSTANCE_ID_EVENT" />-->
-            <!--</intent-filter>-->
-        <!--</service>-->
-        <!--<service android:name=".notifications.MyFirebaseMessagingService">-->
-            <!--<intent-filter>-->
-                <!--<action android:name="com.google.firebase.MESSAGING_EVENT" />-->
-            <!--</intent-filter>-->
-        <!--</service>-->
+        <!-- <service android:name=".notifications.MyFirebaseInstanceIDService"> -->
+        <!-- <intent-filter> -->
+        <!-- <action android:name="com.google.firebase.INSTANCE_ID_EVENT" /> -->
+        <!-- </intent-filter> -->
+        <!-- </service> -->
+        <!-- <service android:name=".notifications.MyFirebaseMessagingService"> -->
+        <!-- <intent-filter> -->
+        <!-- <action android:name="com.google.firebase.MESSAGING_EVENT" /> -->
+        <!-- </intent-filter> -->
+        <!-- </service> -->
         <service android:name=".service.MyFirebaseInstanceIDService">
             <intent-filter>
                 <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />
@@ -195,7 +195,8 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="ke.co.struct.chauffeurrider.MainActivity" />
         </activity>
-        <activity android:name=".activities.CorporateActivity"
+        <activity
+            android:name=".activities.CorporateActivity"
             android:parentActivityName=".activities.PaymentActivity"
             android:screenOrientation="portrait">
 
@@ -204,7 +205,8 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="ke.co.struct.chauffeurrider.activities.PaymentActivity" />
         </activity>
-        <activity android:name=".activities.CardActivity"
+        <activity
+            android:name=".activities.CardActivity"
             android:parentActivityName=".activities.PaymentActivity"
             android:screenOrientation="portrait">
 
@@ -213,6 +215,7 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="ke.co.struct.chauffeurrider.activities.PaymentActivity" />
         </activity>
+        <activity android:name=".activities.DriverAlertActivity"></activity>
     </application>
 
 </manifest>
