@@ -1,4 +1,4 @@
-package ke.co.struct.chauffeurrider.Service;
+package ke.co.struct.chauffeurrider.service;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
@@ -7,9 +7,11 @@ import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.firebase.iid.FirebaseInstanceIdService;
 
 import ke.co.struct.chauffeurrider.Model.Token;
-import ke.co.struct.chauffeurrider.Remote.Common;
+import ke.co.struct.chauffeurrider.remote.Common;
 
-public class MyFirebaseService extends FirebaseInstanceIdService {
+public class MyFirebaseInstanceIDService extends FirebaseInstanceIdService {
+    public MyFirebaseInstanceIDService() {
+    }
     @Override
     public void onTokenRefresh() {
         super.onTokenRefresh();
@@ -17,7 +19,7 @@ public class MyFirebaseService extends FirebaseInstanceIdService {
         updateTokenToServer(refreshedToken);
     }
 
-    private void updateTokenToServer(String refreshedToken) {
+    public void updateTokenToServer(String refreshedToken) {
         FirebaseDatabase db = FirebaseDatabase.getInstance();
         DatabaseReference tokens = db.getReference(Common.notifications);
 

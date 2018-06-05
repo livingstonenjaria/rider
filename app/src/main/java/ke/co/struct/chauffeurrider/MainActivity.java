@@ -1,6 +1,5 @@
 package ke.co.struct.chauffeurrider;
 
-import android.app.Dialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -19,7 +18,6 @@ import android.os.CountDownTimer;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.constraint.ConstraintLayout;
-import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.DialogFragment;
@@ -37,7 +35,6 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -95,6 +92,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.gson.Gson;
 import com.squareup.picasso.Callback;
 import com.squareup.picasso.NetworkPolicy;
@@ -109,12 +107,13 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ExecutionException;
 
-import ke.co.struct.chauffeurrider.Model.Data;
 import ke.co.struct.chauffeurrider.Model.FCMResponse;
+import ke.co.struct.chauffeurrider.Model.Notification;
 import ke.co.struct.chauffeurrider.Model.Sender;
 import ke.co.struct.chauffeurrider.Model.Token;
-import ke.co.struct.chauffeurrider.Remote.Common;
-import ke.co.struct.chauffeurrider.Remote.IFCMService;
+import ke.co.struct.chauffeurrider.notifications.MyFirebaseMessagingService;
+import ke.co.struct.chauffeurrider.remote.Common;
+import ke.co.struct.chauffeurrider.remote.IFCMService;
 import ke.co.struct.chauffeurrider.activities.CardActivity;
 import ke.co.struct.chauffeurrider.activities.HistoryActivity;
 import ke.co.struct.chauffeurrider.activities.PaymentActivity;
@@ -124,6 +123,7 @@ import ke.co.struct.chauffeurrider.adapters.CustomInfoWindowAdapter;
 import ke.co.struct.chauffeurrider.dialog.PaymentDialog;
 import ke.co.struct.chauffeurrider.notifications.SharedPrefManager;
 import ke.co.struct.chauffeurrider.register_and_login.RiderLoginActivity;
+import ke.co.struct.chauffeurrider.service.MyFirebaseInstanceIDService;
 import retrofit2.Call;
 import retrofit2.Response;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
@@ -143,7 +143,7 @@ public class MainActivity extends AppCompatActivity
     IFCMService mService;
     private FirebaseAuth mAuth = FirebaseAuth.getInstance();
     private FirebaseDatabase database = FirebaseDatabase.getInstance();
-    DatabaseReference riderRef;
+    DatabaseReference riderRef, driversAvailable;
     private  String mName,mEmail,mProfileUrl, ridername,rideremail,riderimage,riderphone,ridercountrycode,ridercurrency;
     private TextView txtEmail,txtName;
     private ImageView profileImage;
@@ -196,7 +196,7 @@ public class MainActivity extends AppCompatActivity
     private String location_string, address,driverId,completerideref,riderpickup,riderdropoff,otheraddress;
     private int radius = 1;
     private int newRadius = 1;
-    private int maxRadius = 3;
+    private int maxRadius = 15;
     private double min_fare = 0 ,base_fare = 0,per_km = 0, total_estimate = 0, range = 0;
     private Boolean driverFound = false;
     private Marker driverMarker, pickUpMarker;
@@ -217,7 +217,7 @@ public class MainActivity extends AppCompatActivity
         setSupportActionBar(toolbar);
         ActionBar ab = getSupportActionBar();
         ab.setTitle("Chauffeur");
-
+        mService = Common.getFCMService();
         drawer = findViewById(R.id.drawer_layout);
         toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -365,6 +365,7 @@ public class MainActivity extends AppCompatActivity
         spinner.setOnItemSelectedListener(this);
         Typeface custom_font = Typeface.createFromAsset(MainActivity.this.getAssets(), "fonts/BadScript-Regular.ttf");
         tagName.setTypeface(custom_font);
+
         mPaymentLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -621,9 +622,12 @@ public class MainActivity extends AppCompatActivity
 
             }
         });
-
+        updateFirebaseToken();
     }
-
+    private void updateFirebaseToken() {
+        MyFirebaseInstanceIDService myFirebaseService = new MyFirebaseInstanceIDService();
+        myFirebaseService.updateTokenToServer(FirebaseInstanceId.getInstance().getToken());
+    }
     private void showPaymentOptions() {
         DialogFragment dialog = new PaymentDialog();
         dialog.show(getSupportFragmentManager(), "PaymentDialog");
@@ -1594,7 +1598,18 @@ public class MainActivity extends AppCompatActivity
             if (mLastLocation != location) {
                 mMap.moveCamera(CameraUpdateFactory.newLatLng(riderLatLng));
             }
-            loadAllAvailableDrivers();
+            driversAvailable = database.getReference(Common.drivers_available);
+            driversAvailable.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    loadAllAvailableDrivers();
+                }
+
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+
+                }
+            });
         }
 
     }
@@ -1829,7 +1844,7 @@ public class MainActivity extends AppCompatActivity
         });
     }
     private void loadAllAvailableDrivers(){
-        DatabaseReference driversavailable = database.getReference().child("driversavailable");
+        DatabaseReference driversavailable = database.getReference().child(Common.drivers_available);
         GeoFire geoFireDriver = new GeoFire(driversavailable);
         GeoQuery geoQuery = geoFireDriver.queryAtLocation(new GeoLocation(riderLatLng.latitude, riderLatLng.longitude), radius);
         geoQuery.removeAllListeners();
@@ -1837,7 +1852,7 @@ public class MainActivity extends AppCompatActivity
             @Override
             public void onKeyEntered(String key, GeoLocation location) {
                     driverFoundId = key;
-                DatabaseReference driverLocated = database.getReference().child("driversavailable").child(driverFoundId).child("l");
+                DatabaseReference driverLocated = database.getReference().child(Common.drivers_available).child(driverFoundId).child("l");
                 driverLocated.addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
@@ -1872,6 +1887,9 @@ public class MainActivity extends AppCompatActivity
                             markerOptions.icon(BitmapDescriptorFactory.fromResource(R.mipmap.car));
                             markerOptions.rotation(bearing);
                             markerOptions.flat(true);
+                            if (driverMarker != null){
+                                driverMarker.remove();
+                            }
                             driverMarker = mMap.addMarker(markerOptions);
                             driverMarker.setRotation(bearing);
                         }
@@ -1958,8 +1976,9 @@ public class MainActivity extends AppCompatActivity
                     public void onDataChange(DataSnapshot dataSnapshot) {
                         for(DataSnapshot postSnapshot: dataSnapshot.getChildren()){
                             Token token = postSnapshot.getValue(Token.class);
-                            String json_lat_lng = new Gson().toJson(new LatLng(riderLatLng.latitude, riderLatLng.longitude));
-                            Data data = new Data("Ride Request", json_lat_lng);
+                            String json_lat_lng = new Gson().toJson(new LatLng(mLastLocation.getLatitude(), mLastLocation.getLongitude()));
+                            String ridertoken = FirebaseInstanceId.getInstance().getToken();
+                            Notification data = new Notification(ridertoken, json_lat_lng);
                             Sender content = new Sender(token.getToken(), data);
                             mService.sendMessage(content)
                                     .enqueue(new retrofit2.Callback<FCMResponse>() {

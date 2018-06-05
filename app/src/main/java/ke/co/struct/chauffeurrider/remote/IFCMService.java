@@ -1,4 +1,4 @@
-package ke.co.struct.chauffeurrider.Remote;
+package ke.co.struct.chauffeurrider.remote;
 
 import ke.co.struct.chauffeurrider.Model.FCMResponse;
 import ke.co.struct.chauffeurrider.Model.Sender;

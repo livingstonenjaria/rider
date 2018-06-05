@@ -1,4 +1,4 @@
-package ke.co.struct.chauffeurrider.Remote;
+package ke.co.struct.chauffeurrider.remote;
 
 import retrofit2.Retrofit;
 import retrofit2.converter.scalars.ScalarsConverterFactory;
