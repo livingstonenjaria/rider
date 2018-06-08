@@ -9,16 +9,22 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
+import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.content.LocalBroadcastManager;
+import android.util.Log;
 import android.widget.Toast;
 
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
 
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.HashMap;
 import java.util.Map;
 
 import ke.co.struct.chauffeurrider.MainActivity;
@@ -27,6 +33,7 @@ import ke.co.struct.chauffeurrider.activities.DriverAlertActivity;
 
 public class MyFirebaseMessagingService extends FirebaseMessagingService {
     private String title, body;
+    private static final String TAG = "MyFirebaseMessagingServ";
 
     
     @Override
@@ -42,21 +49,21 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
                     Toast.makeText(MyFirebaseMessagingService.this, ""+remoteMessage.getNotification().getBody(), Toast.LENGTH_SHORT).show();
                 }
             });
+            String message = "Your driver has cancelled the trip";
+            showNotification(message);
         }
-        else if (title.equals("Arrived")){
-            showArrivedNotification(body);
-
+        if (title.equals("Arrived")){
+            showNotification(body);
         }
-        else if (title.equals("Accepted")){
-            if(remoteMessage.getData().size() > 0){
-                Map<String,String> payload = remoteMessage.getData();
-                // Create and show notification
-                String name = payload.get("name");
-                String phone = payload.get("phone");
-                String pic = payload.get("profileImageUrl");
-                String model = payload.get("carType");
-                String car = payload.get("carimg");
-                String plate = payload.get("licPlate");
+        if (title.equals("Accepted")){
+            try {
+                JSONObject data = new JSONObject(body);
+                String name = data.getString("name");
+                String phone = data.getString("phone");
+                String model = data.getString("carType");
+                String car = data.getString("carimg");
+                String plate = data.getString("licPlate");
+                String pic = data.getString("ProfileImageUrl");
                 Intent intent = new Intent(getBaseContext(), DriverAlertActivity.class);
                 intent.putExtra("name",name);
                 intent.putExtra("phone",phone);
@@ -66,13 +73,15 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
                 intent.putExtra("plate",plate);
                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(intent);
-            }
 
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
         }
 
     }
 
-    private void showArrivedNotification(String body) {
+    private void showNotification(String body) {
         Uri sound = Uri.parse(ContentResolver.SCHEME_ANDROID_RESOURCE
                 + "://" + getPackageName() + "/raw/chauffeur_notification");
         PendingIntent pendingIntent = PendingIntent.getActivity(getBaseContext(),0,new Intent(),PendingIntent.FLAG_ONE_SHOT);
