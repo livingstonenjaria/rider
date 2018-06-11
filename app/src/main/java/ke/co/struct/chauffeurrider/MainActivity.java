@@ -1971,7 +1971,7 @@ public class MainActivity extends AppCompatActivity
     private void sendDriverRequest(String driverFoundId, String requestid) {
         DatabaseReference tokens = database.getReference(Common.notifications);
         tokens.orderByKey().equalTo(driverFoundId)
-                .addListenerForSingleValueEvent(new ValueEventListener() {
+                .addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
                         for(DataSnapshot postSnapshot: dataSnapshot.getChildren()){
