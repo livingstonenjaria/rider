@@ -73,8 +73,8 @@ public class DriverAlertActivity extends AppCompatActivity {
 
             drivername.setText(driver_name);
             driverphone.setText(driver_phone);
-            licplate.setText(car_type);
-            cartype.setText(car_pic);
+            licplate.setText(lic_plate);
+            cartype.setText(car_type);
                 Picasso.with(DriverAlertActivity.this).load(driver_pic).networkPolicy(NetworkPolicy.OFFLINE).placeholder(R.drawable.profile).into(driverpic, new Callback() {
                     @Override
                     public void onSuccess() {}
