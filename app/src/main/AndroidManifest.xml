@@ -43,6 +43,13 @@
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
         </service>
+        <service
+            android:exported="false"
+            android:name=".service.MyJobService">
+            <intent-filter>
+                <action android:name="com.firebase.jobdispatcher.ACTION_EXECUTE"/>
+            </intent-filter>
+        </service>
 
         <activity android:name=".register_and_login.RiderLoginActivity">
 
@@ -215,7 +222,10 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="ke.co.struct.chauffeurrider.activities.PaymentActivity" />
         </activity>
-        <activity android:name=".activities.DriverAlertActivity"></activity>
+        <activity android:name=".activities.DriverAlertActivity" />
+        <activity
+            android:name=".activities.RideTracking"
+            android:label="@string/title_activity_ride_tracking"></activity>
     </application>
 
 </manifest>

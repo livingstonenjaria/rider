@@ -18,6 +18,8 @@ import android.os.CountDownTimer;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.constraint.ConstraintLayout;
+import android.support.design.widget.BottomSheetBehavior;
+import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.DialogFragment;
@@ -41,6 +43,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RatingBar;
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
@@ -94,6 +97,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.gson.Gson;
+import com.rengwuxian.materialedittext.MaterialEditText;
 import com.squareup.picasso.Callback;
 import com.squareup.picasso.NetworkPolicy;
 import com.squareup.picasso.Picasso;
@@ -107,10 +111,12 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ExecutionException;
 
+import ke.co.struct.chauffeurrider.Model.DataMessage;
 import ke.co.struct.chauffeurrider.Model.FCMResponse;
 import ke.co.struct.chauffeurrider.Model.Notification;
 import ke.co.struct.chauffeurrider.Model.Sender;
 import ke.co.struct.chauffeurrider.Model.Token;
+import ke.co.struct.chauffeurrider.Model.User;
 import ke.co.struct.chauffeurrider.notifications.MyFirebaseMessagingService;
 import ke.co.struct.chauffeurrider.remote.Common;
 import ke.co.struct.chauffeurrider.remote.IFCMService;
@@ -138,6 +144,9 @@ public class MainActivity extends AppCompatActivity
         AdapterView.OnItemSelectedListener,
         PaymentDialog.NoticeDialogListener{
     ActionBarDrawerToggle toggle;
+    Button btnBottomSheet;
+    View bottomSheet;
+    BottomSheetBehavior sheetBehavior;
     Toolbar toolbar = null;
     DrawerLayout drawer;
     IFCMService mService;
@@ -151,7 +160,7 @@ public class MainActivity extends AppCompatActivity
     private View navHeaderView;
     GoogleApiClient mGoogleApiClient;
     private GoogleMap mMap;
-    private LocationRequest mLocationRequest = new LocationRequest();
+    private LocationRequest mLocationRequest;
     private Location mLastLocation;
     private Location mLastKnownLocation;
     private LatLng mDefaultLocation = new LatLng(-1.2921, 36.8219);
@@ -177,11 +186,11 @@ public class MainActivity extends AppCompatActivity
     int PLACE_AUTOCOMPLETE_REQUEST_CODE_DESTINATION = 3;
     private ImageView imgPayment, driver_image,driver_profile;
     private Button searchBtn, requestBtn, confirmBtn, cancelRideBtn, callDriver,makepayment,rateBtn,cancelBtn, ongoingBtn;
-    private EditText mSource, mDestination, mrideSource, mrideDestination;
-    private TextView tagName, mPayment, driverETA, driverName, carType, licPlate, ratings,estimate,pricetag;
+    private MaterialEditText mSource, mDestination, mrideSource, mrideDestination;
+    private TextView mPayment, driverETA, driverName, carType, licPlate, ratings,estimate,pricetag;
     private TextView txtDropOff, txtPickUp,txtRating,txtDriver;
-    private ConstraintLayout mSourceLayout, driverLayout,paymentDialog,ratingDialog;
-    private RelativeLayout mPaymentLayout;
+    private ConstraintLayout  driverLayout,paymentDialog,ratingDialog;
+    private LinearLayout mPaymentLayout;
     private RatingBar ratingBar;
     private CameraPosition mCameraPosition;
     SupportMapFragment mapFragment;
@@ -202,6 +211,7 @@ public class MainActivity extends AppCompatActivity
     private Marker driverMarker, pickUpMarker;
     Spinner spinner;
     float mDistance;
+    FloatingActionButton fabrequest;
      ValueEventListener rejectedlistner;
     @Override
     protected void attachBaseContext(Context newBase) {
@@ -223,6 +233,9 @@ public class MainActivity extends AppCompatActivity
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
         toggle.syncState();
+        fabrequest = findViewById(R.id.fabrequest);
+        bottomSheet = findViewById(R.id.bottom_sheet);
+        sheetBehavior = BottomSheetBehavior.from(bottomSheet);
 
         navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
@@ -304,9 +317,9 @@ public class MainActivity extends AppCompatActivity
         mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.mainmap);
         mapView = mapFragment.getView();
         mapFragment.getMapAsync(this);
-        tagName = findViewById(R.id.tagName);
-        mPaymentLayout = findViewById(R.id.payment);
-        confirmBtn = findViewById(R.id.confirmBtn);
+
+        mPaymentLayout = bottomSheet.findViewById(R.id.payment);
+        confirmBtn = bottomSheet.findViewById(R.id.confirmBtn);
         cancelBtn = findViewById(R.id.cancel);
         ongoingBtn = findViewById(R.id.ride_started);
         callDriver = findViewById(R.id.callDriver);
@@ -319,20 +332,19 @@ public class MainActivity extends AppCompatActivity
         }
 
         spinner = findViewById(R.id.spinner);
-        mSourceLayout = findViewById(R.id.mSourceLayout);
         driver_image = findViewById(R.id.driver_image);
         carType = findViewById(R.id.carType);
         licPlate = findViewById(R.id.licPlate);
         driverName = findViewById(R.id.driverName);
         ratings = findViewById(R.id.ratings);
         driverETA = findViewById(R.id.driverEta);
-        mPayment = findViewById(R.id.txtPayment);
-        mSource = findViewById(R.id.source);
-        estimate = findViewById(R.id.txtEstimate);
-        mDestination = findViewById(R.id.destination);
-        mrideSource = findViewById(R.id.ridesource);
-        mrideDestination = findViewById(R.id.ridedestination);
-        imgPayment = findViewById(R.id.imgPayment);
+        mPayment = bottomSheet.findViewById(R.id.txtPayment);
+        mSource = bottomSheet.findViewById(R.id.source);
+        estimate = bottomSheet.findViewById(R.id.txtEstimate);
+        mDestination = bottomSheet.findViewById(R.id.destination);
+//        mrideSource = findViewById(R.id.ridesource);
+//        mrideDestination = findViewById(R.id.ridedestination);
+        imgPayment = bottomSheet.findViewById(R.id.imgPayment);
         pricetag = findViewById(R.id.pricetag);
         makepayment = findViewById(R.id.makepayment);
         /*------------------Rating-------------------------*/
@@ -350,10 +362,10 @@ public class MainActivity extends AppCompatActivity
         mSource.setClickable(true);
         mDestination.setFocusable(false);
         mDestination.setClickable(true);
-        mrideSource.setFocusable(false);
-        mrideSource.setClickable(false);
-        mrideDestination.setFocusable(false);
-        mrideDestination.setClickable(false);
+//        mrideSource.setFocusable(false);
+//        mrideSource.setClickable(false);
+//        mrideDestination.setFocusable(false);
+//        mrideDestination.setClickable(false);
         mPaymentLayout.setClickable(true);
         // Create an ArrayAdapter using the string array and a default spinner layout
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
@@ -363,8 +375,6 @@ public class MainActivity extends AppCompatActivity
         // Apply the adapter to the spinner
         spinner.setAdapter(adapter);
         spinner.setOnItemSelectedListener(this);
-        Typeface custom_font = Typeface.createFromAsset(MainActivity.this.getAssets(), "fonts/BadScript-Regular.ttf");
-        tagName.setTypeface(custom_font);
 
         mPaymentLayout.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -499,36 +509,35 @@ public class MainActivity extends AppCompatActivity
 
             }
         });
-         /*-----------------Request a Chauffeur-----------*/
-        requestBtn = findViewById(R.id.requestBtn);
-        requestBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (address == null) {
-                    getLocationInfo(currentLat, currentLng);
-                }
-                mSourceLayout.setVisibility(View.VISIBLE);
-                if (address != null) {
-                    mSource.setText(address);
-                }
-                confirmBtn.setVisibility(View.VISIBLE);
-                requestBtn.setVisibility(View.GONE);
-            }
-        });
+//         /*-----------------Request a Chauffeur-----------*/
+//        requestBtn = findViewById(R.id.requestBtn);
+//        requestBtn.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                if (address == null) {
+//                    getLocationInfo(currentLat, currentLng);
+//                }
+//                if (address != null) {
+//                    mSource.setText(address);
+//                }
+//                confirmBtn.setVisibility(View.VISIBLE);
+//                requestBtn.setVisibility(View.GONE);
+//            }
+//        });
          /*-----------------Confirm request details-----------*/
         confirmBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if (address != null) {
-                    mrideSource.setText(address);
+//                    mrideSource.setText(address);
                 }
                 if (placeName != null) {
-                    mrideDestination.setText(placeName);
+//                    mrideDestination.setText(placeName);
                     riderRequest();
-                    confirmBtn.setVisibility(View.GONE);
+                    bottomSheet.setVisibility(View.GONE);
+                    fabrequest.setVisibility(View.GONE);
                     cancelRideBtn.setVisibility(View.VISIBLE);
                     driverLayout.setVisibility(View.GONE);
-                    mSourceLayout.setVisibility(View.GONE);
                 }else {
                     Toast.makeText(MainActivity.this, "Please enter a destination", Toast.LENGTH_SHORT).show();
                 }
@@ -595,6 +604,7 @@ public class MainActivity extends AppCompatActivity
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 if (dataSnapshot.exists()) {
+                    Common.userrider = dataSnapshot.getValue(User.class);
                     Map<String, Object> map = (Map<String, Object>) dataSnapshot.getValue();
                     if (map.get("name") != null) {
                         ridername = map.get("name").toString();
@@ -622,8 +632,52 @@ public class MainActivity extends AppCompatActivity
 
             }
         });
+        sheetBehavior.setBottomSheetCallback(new BottomSheetBehavior.BottomSheetCallback() {
+            @Override
+            public void onStateChanged(@NonNull View bottomSheet, int newState) {
+                switch (newState) {
+                    case BottomSheetBehavior.STATE_HIDDEN:
+                        break;
+                    case BottomSheetBehavior.STATE_EXPANDED: {
+                        if (address!= null){
+                            mSource.setText(address);
+                        }
+
+                    }
+                    break;
+                    case BottomSheetBehavior.STATE_COLLAPSED: {
+                    }
+                    break;
+                    case BottomSheetBehavior.STATE_DRAGGING:
+                        break;
+                    case BottomSheetBehavior.STATE_SETTLING:
+                        break;
+                }
+            }
+
+            @Override
+            public void onSlide(@NonNull View bottomSheet, float slideOffset) {
+
+            }
+        });
+        fabrequest.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                toggleBottomSheet();
+            }
+        });
         updateFirebaseToken();
     }
+
+    private void toggleBottomSheet() {
+            if (sheetBehavior.getState() != BottomSheetBehavior.STATE_EXPANDED) {
+                sheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
+
+            } else {
+                sheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
+            }
+    }
+
     private void updateFirebaseToken() {
         MyFirebaseInstanceIDService myFirebaseService = new MyFirebaseInstanceIDService();
         myFirebaseService.updateTokenToServer(FirebaseInstanceId.getInstance().getToken());
@@ -885,9 +939,12 @@ public class MainActivity extends AppCompatActivity
                     otherLat = otherLatLng.latitude;
                     otherLng = otherLatLng.longitude;
                     start = otherLatLng;
+                    if (end != null){
+                        getRouteToDestination(end);
+                    }
                     getLocationInfo(otherLat,otherLng);
                     if (address != null){
-                        mrideSource.setText(address);
+//                        mrideSource.setText(address);
                         mSource.setText(address);
                     }
 
@@ -949,7 +1006,6 @@ public class MainActivity extends AppCompatActivity
                         });
                         builder.setNegativeButton(R.string.no, new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int id) {
-                               mSourceLayout.setVisibility(View.GONE);
                             }
                         });
                         AlertDialog dialog = builder.create();
@@ -1124,7 +1180,7 @@ public class MainActivity extends AppCompatActivity
                                     new LatLng(mLastKnownLocation.getLatitude(),
                                             mLastKnownLocation.getLongitude()), DEFAULT_ZOOM));
                             if (mLastKnownLocation != null) {
-                                //getLocationInfo(initialLat,initialLng);
+                                getLocationInfo(initialLat,initialLng);
                             }
                         } catch (SecurityException e) {
 
@@ -1196,15 +1252,14 @@ public class MainActivity extends AppCompatActivity
                 placeName = place.getName();
                 if (placeName != null) {
                     address = placeName.toString();
-                    mSource.setText(placeName);
+                    mSource.setText(address);
                 }
                 directionLng = pickupLng;
                 directionLat = pickupLat;
+                directionsLatLng = new LatLng(directionLat, directionLng);
+                pickUpLatLng = directionsLatLng;
+                start = directionsLatLng;
                 if (placeId != null && destinationLng != 0.0 && destinationLat != 0.0 && directionLng != 0.0 && directionLat != 0.0) {
-                    directionsLatLng = new LatLng(directionLat, directionLng);
-                    // getRouteDirections(directionsLatLng);
-                    pickUpLatLng = directionsLatLng;
-                    start = directionsLatLng;
                     if (end != null){
                         getRouteToDestination(end);
                     }
@@ -1309,10 +1364,13 @@ public class MainActivity extends AppCompatActivity
     /*-----------------Make a ride request-----------*/
 
     private void riderRequest() {
+        if (pickUpLatLng == null) {
+            pickUpLatLng = new LatLng(mLastLocation.getLatitude(), mLastLocation.getLongitude());
+        }
         DatabaseReference riderRequest = database.getReference("riderRequest");
         String request = riderRequest.push().getKey();
         GeoFire geoFire = new GeoFire(riderRequest);
-        geoFire.setLocation(request, new GeoLocation(mLastLocation.getLatitude(), mLastLocation.getLongitude()));
+        geoFire.setLocation(request, new GeoLocation(pickUpLatLng.latitude, pickUpLatLng.longitude));
         DatabaseReference ref = database.getReference().child("riderRequest").child(request);
         HashMap<String, Object> map = new HashMap<>();
         map.put("riderDestination", placeName);
@@ -1325,9 +1383,7 @@ public class MainActivity extends AppCompatActivity
         map.put("destinationLng", destinationLng);
         map.put("timestamp", getCurrentTimestamp());
         ref.updateChildren(map);
-        if (pickUpLatLng == null) {
-            pickUpLatLng = new LatLng(mLastLocation.getLatitude(), mLastLocation.getLongitude());
-        }
+
         if (mMap != null) {
             pickUpMarker = mMap.addMarker(new MarkerOptions().position(pickUpLatLng)
                     .icon(BitmapDescriptorFactory.fromResource(R.mipmap.destination)).title(getString(R.string.pick_up_here)));
@@ -1598,6 +1654,7 @@ public class MainActivity extends AppCompatActivity
             if (mLastLocation != location) {
                 mMap.moveCamera(CameraUpdateFactory.newLatLng(riderLatLng));
             }
+            getLocationInfo(currentLat,currentLng);
             driversAvailable = database.getReference(Common.drivers_available);
             driversAvailable.addValueEventListener(new ValueEventListener() {
                 @Override
@@ -1704,11 +1761,15 @@ public class MainActivity extends AppCompatActivity
                 location = ret.getJSONArray("results").getJSONObject(0);
                 location_string = location.getString("formatted_address");
                 address = location_string;
+                if (address != null){
+                    mSource.setText(address);
+                }
             }
         } catch (JSONException e1) {
             e1.printStackTrace();
         }
     }
+
     protected synchronized void buildGoogleApiClient() {
         mGoogleApiClient = new GoogleApiClient.Builder(MainActivity.this)
                 .addApi(LocationServices.API)
@@ -1926,9 +1987,12 @@ public class MainActivity extends AppCompatActivity
         });
     }
     private void findDriver(final String requestid){
+        if (pickUpLatLng == null) {
+            pickUpLatLng = new LatLng(mLastLocation.getLatitude(), mLastLocation.getLongitude());
+        }
         DatabaseReference driversavailable = database.getReference().child("driversavailable");
         GeoFire geoFireDriver = new GeoFire(driversavailable);
-        GeoQuery geoQuery = geoFireDriver.queryAtLocation(new GeoLocation(riderLatLng.latitude, riderLatLng.longitude), radius);
+        GeoQuery geoQuery = geoFireDriver.queryAtLocation(new GeoLocation(pickUpLatLng.latitude, pickUpLatLng.longitude), radius);
         geoQuery.removeAllListeners();
         geoQuery.addGeoQueryEventListener(new GeoQueryEventListener() {
             @Override
@@ -1957,6 +2021,9 @@ public class MainActivity extends AppCompatActivity
                         if (radius <= maxRadius ){
                             radius ++;
                             findDriver(requestid);
+                        }else{
+                            mMap.clear();
+                            displayNoDriversAvailable();
                         }
                     }
             }
@@ -1968,18 +2035,36 @@ public class MainActivity extends AppCompatActivity
         });
     }
 
-    private void sendDriverRequest(String driverFoundId, String requestid) {
+    private void sendDriverRequest(String driverFoundId, final String requestid) {
+        if (pickUpLatLng == null) {
+            pickUpLatLng = new LatLng(mLastLocation.getLatitude(), mLastLocation.getLongitude());
+        }
         DatabaseReference tokens = database.getReference(Common.notifications);
         tokens.orderByKey().equalTo(driverFoundId)
-                .addListenerForSingleValueEvent(new ValueEventListener() {
+                .addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
                         for(DataSnapshot postSnapshot: dataSnapshot.getChildren()){
                             Token token = postSnapshot.getValue(Token.class);
-                            String json_lat_lng = new Gson().toJson(new LatLng(mLastLocation.getLatitude(), mLastLocation.getLongitude()));
+                            Log.d(TAG, "onDataChange: "+token.getToken());
+                            Log.d(TAG, "onDataChange: "+Common.userrider.getName());
+                            Log.d(TAG, "onDataChange: "+Common.userrider.getPhone());
+                            String json_lat_lng = new Gson().toJson(new LatLng(pickUpLatLng.latitude, pickUpLatLng.longitude));
+                            String to_lat_lng = new Gson().toJson(new LatLng(destinationLat, destinationLng));
+                            Log.d(TAG, "onDataChange: "+to_lat_lng);
+                            Log.d(TAG, "onDataChange: "+json_lat_lng);
                             String ridertoken = FirebaseInstanceId.getInstance().getToken();
-                            Notification data = new Notification(ridertoken, json_lat_lng);
-                            Sender content = new Sender(token.getToken(), data);
+                            Map<String,String> data = new HashMap<>();
+                            data.put("title","Ride Request");
+                            data.put("message",String.format("%s has sent you a request", Common.userrider.getName()));
+                            data.put("phone",Common.userrider.getPhone());
+                            data.put("name",Common.userrider.getName());
+                            data.put("location", json_lat_lng);
+                            data.put("destination",to_lat_lng);
+                            data.put("ridertoken",ridertoken);
+                            data.put("pushid",requestid);
+                            DataMessage content = new DataMessage(token.getToken(), data);
+                            Log.d(TAG, "onDataChange: "+content);
                             mService.sendMessage(content)
                                     .enqueue(new retrofit2.Callback<FCMResponse>() {
                                         @Override
@@ -1987,7 +2072,13 @@ public class MainActivity extends AppCompatActivity
                                             if (response.body().success == 1){
                                                 Toast.makeText(MainActivity.this, "Request Sent", Toast.LENGTH_SHORT).show();
                                             }else{
-                                                Toast.makeText(MainActivity.this, "Failed to send Request", Toast.LENGTH_SHORT).show();
+                                                try {
+                                                    JSONObject jObjError = new JSONObject(response.errorBody().string());
+                                                    Toast.makeText(MainActivity.this, jObjError.getString("message"), Toast.LENGTH_LONG).show();
+                                                    Log.e(TAG, jObjError.getString("message") );
+                                                } catch (Exception e) {
+                                                    Toast.makeText(MainActivity.this, e.getMessage(), Toast.LENGTH_LONG).show();
+                                                }
                                             }
 
                                         }

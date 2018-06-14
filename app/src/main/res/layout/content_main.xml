@@ -67,200 +67,6 @@
     </android.support.v7.widget.CardView>
 
 <android.support.constraint.ConstraintLayout
-    android:id="@+id/mSourceLayout"
-    android:layout_width="0dp"
-    android:layout_height="200dp"
-    android:layout_marginBottom="68dp"
-    android:layout_marginEnd="24dp"
-    android:layout_marginStart="24dp"
-    android:background="@drawable/rectangle"
-    app:layout_constraintBottom_toBottomOf="parent"
-    app:layout_constraintEnd_toEndOf="parent"
-    app:layout_constraintStart_toStartOf="parent"
-    android:visibility="gone"
-    >
-
-    <RelativeLayout
-        android:id="@+id/mission"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:layout_marginTop="1dp"
-        android:background="@color/grey"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:padding="5dp">
-
-        <ImageView
-            android:id="@+id/imgMission"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_alignParentStart="true"
-            android:layout_centerVertical="true"
-            android:layout_marginStart="66dp"
-            android:src="@mipmap/caricon" />
-
-        <TextView
-            android:id="@+id/tagName"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="@color/colorAccent"
-            android:layout_toEndOf="@+id/imgMission"
-            android:text="@string/chauffeur"
-            android:textSize="16sp"
-            android:textStyle="bold" />
-
-    </RelativeLayout>
-
-    <RelativeLayout
-        android:layout_width="0dp"
-        android:layout_height="50dp"
-        android:background="@drawable/rectangle"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/mission">
-
-        <RelativeLayout
-            android:id="@+id/estimate"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_toEndOf="@id/view"
-            android:padding="10dp">
-
-            <ImageView
-                android:layout_width="25dp"
-                android:layout_height="25dp"
-                android:background="@mipmap/estimate" />
-
-            <TextView
-                android:id="@+id/txtEstimate"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentTop="true"
-                android:layout_centerInParent="true"
-                tools:text="KShs ---"
-                android:textColor="@color/black"
-                android:textSize="11sp" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentBottom="true"
-                android:layout_alignStart="@+id/txtEstimate"
-                android:text="@string/estimate"
-                android:textColor="@color/black"
-                android:textSize="10sp" />
-        </RelativeLayout>
-
-        <View
-            android:id="@id/view"
-            android:layout_width="0.5dp"
-            android:layout_height="30dp"
-            android:layout_centerInParent="true"
-            android:background="@color/black" />
-
-        <RelativeLayout
-            android:id="@+id/payment"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_toStartOf="@id/view"
-            android:padding="10dp">
-
-            <ImageView
-                android:id="@+id/imgPayment"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:background="@mipmap/ico1" />
-
-            <TextView
-                android:id="@+id/txtPayment"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentTop="true"
-                android:layout_centerInParent="true"
-                android:text="@string/cash"
-                android:textColor="@color/black"
-                android:textSize="12sp" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentBottom="true"
-                android:layout_centerInParent="true"
-                android:text="@string/payment"
-                android:textColor="@color/black"
-                android:textSize="10sp" />
-        </RelativeLayout>
-    </RelativeLayout>
-
-
-    <EditText
-        android:id="@+id/source"
-        android:layout_width="0dp"
-        android:layout_height="35dp"
-        android:layout_marginEnd="24dp"
-        android:layout_marginTop="16dp"
-        android:background="@android:color/transparent"
-        android:editable="false"
-        android:ems="10"
-        android:hint="@string/pick_up"
-        android:inputType="textMultiLine"
-        android:padding="5dp"
-        android:textAlignment="textStart"
-        android:textSize="12sp"
-        app:layout_constraintBottom_toTopOf="@+id/destination"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.796"
-        app:layout_constraintStart_toStartOf="@+id/view"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0" />
-
-    <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="50dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="8dp"
-        android:src="@mipmap/connect"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.791" />
-
-    <View
-        android:id="@+id/view"
-        android:layout_width="0dp"
-        android:layout_height="0.5dp"
-        android:layout_marginEnd="24dp"
-        android:layout_marginTop="8dp"
-        android:background="@color/black"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/imageView"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.72" />
-
-    <EditText
-        android:id="@+id/destination"
-        android:layout_width="0dp"
-        android:layout_height="37dp"
-        android:layout_marginEnd="24dp"
-        android:background="@android:color/transparent"
-        android:editable="false"
-        android:ems="10"
-        android:hint="@string/destination"
-        android:inputType="textMultiLine"
-        android:padding="5dp"
-        android:textAlignment="textStart"
-        android:textSize="12sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.796"
-        app:layout_constraintStart_toStartOf="@+id/view"
-        app:layout_constraintTop_toTopOf="@+id/view"
-        app:layout_constraintVertical_bias="0.0" />
-</android.support.constraint.ConstraintLayout>
-<android.support.constraint.ConstraintLayout
     android:id="@+id/mDriverInfo"
     android:layout_width="0dp"
     android:layout_height="220dp"
@@ -764,5 +570,15 @@
         />
 
 </android.support.constraint.ConstraintLayout>
+    <include layout="@layout/bottom_sheet" />
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fabrequest"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/activity_vertical_margin"
+        android:src="@drawable/ic_local_taxi_black_24dp"
+        app:backgroundTint="@color/green"
+        app:layout_anchor="@+id/bottom_sheet"
+        app:layout_anchorGravity="top|end" />
 </android.support.design.widget.CoordinatorLayout>
 

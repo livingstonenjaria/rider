@@ -41,10 +41,30 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
     
     @Override
     public void onMessageReceived(final RemoteMessage remoteMessage) {
-        if (remoteMessage.getData() != null){
+        if (remoteMessage.getData().size() > 0){
+            title = remoteMessage.getData().get("title");
             Map<String,String> notification = remoteMessage.getData();
-            title = notification.get("title");
-            body = notification.get("message");
+
+
+            if (title.equals("Accepted")){
+                String name = notification.get("name");
+                String phone = notification.get("phone");
+                String model =notification.get("carType");
+                String car = notification.get("carimg");
+                String plate = notification.get("licPlate");
+                String pic = notification.get("ProfileImageUrl");
+                Intent intent = new Intent(getApplicationContext(), DriverAlertActivity.class);
+                intent.putExtra("name",name);
+                intent.putExtra("phone",phone);
+                intent.putExtra("pic",pic);
+                intent.putExtra("model",model);
+                intent.putExtra("car",car);
+                intent.putExtra("plate",plate);
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(intent);
+                showNotificationAccepted(name,phone,model,car,plate,pic);
+
+            }
             if (title.equals("Cancelled")){
                 Handler handler = new Handler(Looper.getMainLooper());
                 handler.post(new Runnable() {
@@ -65,34 +85,26 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
                 }
                 showNotification(body);
             }
-            if (title.equals("Accepted")){
-                try {
-                    JSONObject data = new JSONObject(body);
-                    String name = data.getString("name");
-                    String phone = data.getString("phone");
-                    String model = data.getString("carType");
-                    String car = data.getString("carimg");
-                    String plate = data.getString("licPlate");
-                    String pic = data.getString("ProfileImageUrl");
-                    Intent intent = new Intent(getBaseContext(), DriverAlertActivity.class);
-                    intent.putExtra("name",name);
-                    intent.putExtra("phone",phone);
-                    intent.putExtra("pic",pic);
-                    intent.putExtra("model",model);
-                    intent.putExtra("car",car);
-                    intent.putExtra("plate",plate);
-                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                    startActivity(intent);
-
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-            }
         }
-        
-
-
     }
+
+    private void openDriverAccept() {
+        try {
+            JSONObject data = new JSONObject(body);
+            String name = data.getString("name");
+            String phone = data.getString("phone");
+            String model = data.getString("carType");
+            String car = data.getString("carimg");
+            String plate = data.getString("licPlate");
+            String pic = data.getString("ProfileImageUrl");
+
+
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
+
     @RequiresApi(api = Build.VERSION_CODES.O)
     private  void showNotificationsAPI26(String message){
         PendingIntent pendingIntent = PendingIntent.getActivity(getBaseContext(),0,new Intent(),PendingIntent.FLAG_ONE_SHOT);
@@ -104,9 +116,35 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
 
     }
     private void showNotification(String body) {
+        Intent intent = new Intent(this, DriverAlertActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
         Uri sound = Uri.parse(ContentResolver.SCHEME_ANDROID_RESOURCE
                 + "://" + getPackageName() + "/raw/chauffeur_notification");
-        PendingIntent pendingIntent = PendingIntent.getActivity(getBaseContext(),0,new Intent(),PendingIntent.FLAG_ONE_SHOT);
+        PendingIntent pendingIntent = PendingIntent.getActivity(getBaseContext(),0,intent,PendingIntent.FLAG_ONE_SHOT);
+        Notification.Builder builder = new Notification.Builder(getBaseContext());
+        builder.setLargeIcon(BitmapFactory.decodeResource(getResources(), R.mipmap.ic_launcher_foreground))
+                .setWhen(System.currentTimeMillis())
+                .setSmallIcon(R.drawable.ic_car)
+                .setSound(sound)
+                .setAutoCancel(true)
+                .setContentTitle(title)
+                .setContentText(body)
+                .setContentIntent(pendingIntent);
+        NotificationManager notificationManager = (NotificationManager)getBaseContext().getSystemService(Context.NOTIFICATION_SERVICE);
+        notificationManager.notify(1,builder.build());
+    }
+    private void showNotificationAccepted(String name, String phone, String model, String car, String plate, String pic) {
+        Intent intent = new Intent(getApplicationContext(), DriverAlertActivity.class);
+            intent.putExtra("name",name);
+            intent.putExtra("phone",phone);
+            intent.putExtra("pic",pic);
+            intent.putExtra("model",model);
+            intent.putExtra("car",car);
+            intent.putExtra("plate",plate);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
+        Uri sound = Uri.parse(ContentResolver.SCHEME_ANDROID_RESOURCE
+                + "://" + getPackageName() + "/raw/chauffeur_notification");
+        PendingIntent pendingIntent = PendingIntent.getActivity(getBaseContext(),0, intent ,PendingIntent.FLAG_UPDATE_CURRENT);
         Notification.Builder builder = new Notification.Builder(getBaseContext());
         builder.setLargeIcon(BitmapFactory.decodeResource(getResources(), R.mipmap.ic_launcher_foreground))
                 .setWhen(System.currentTimeMillis())

@@ -1,5 +1,6 @@
 package ke.co.struct.chauffeurrider.remote;
 
+import ke.co.struct.chauffeurrider.Model.DataMessage;
 import ke.co.struct.chauffeurrider.Model.FCMResponse;
 import ke.co.struct.chauffeurrider.Model.Sender;
 import retrofit2.Call;
@@ -13,5 +14,5 @@ public interface IFCMService {
             "Authorization: key=AAAA6ycQy9Q:APA91bFdkb23WzOvoldRjMRcoKFaptEUnWuk3p27vDn_co-RS--awugPlBy5BjVzRMBUSs1g0T__UReEnLR3ccnSYrlXh64kQvciDG2xUzwvuI09fmzbBkCqr3vIdV7C-ZZywQcuE9bG"
     })
     @POST("fcm/send")
-    Call<FCMResponse> sendMessage (@Body Sender body);
+    Call<FCMResponse> sendMessage (@Body DataMessage body);
 }
